@@ -3,8 +3,10 @@
 import { useState } from "react";
 import { StarIcon } from "@heroicons/react/20/solid";
 import { Button, Radio, RadioGroup } from "@headlessui/react";
-import { ButtonBase, Grid2, Rating } from "@mui/material";
+import { Box, ButtonBase, Grid2, LinearProgress, Rating } from "@mui/material";
 import ProductReviewCard from "./ProductReviewCard";
+import { mens_kurta } from "../../../data/mens_kurta";
+import HomeSectionCard from "../HomeSectionCard/HomeSectionCard";
 
 const product = {
   name: "Basic Tee 6-Pack",
@@ -279,7 +281,138 @@ export default function ProductDetails() {
                   ))}
                 </div>
               </Grid2>
+
+              <Grid2 item xs={5}>
+                <h1 className="text-xl font-semibold pb-1">Product Ratings</h1>
+                <div className="flex items-center space-x-3">
+                  <Rating value={4} precision={0.5} readOnly />
+                  <p className="opacity-80">54890 Ratings</p>
+                </div>
+                <Box className="mt-5">
+                  <Grid2 container direction="column" spacing={1}>
+                    <Grid2 item>
+                      <div className="flex items-center justify-between">
+                        <p>Excellent</p>
+                        <p></p>{" "}
+                        {/* Placeholder for potential count if needed */}
+                      </div>
+                      <Box
+                        sx={{
+                          bgcolor: "#e0e0e0",
+                          borderRadius: 4,
+                          height: 8,
+                          width: "100%",
+                        }}
+                      >
+                        <LinearProgress
+                          sx={{ borderRadius: 4, height: 8 }}
+                          variant="determinate"
+                          value={80}
+                          color="success"
+                        />
+                      </Box>
+                    </Grid2>
+                    <Grid2 item>
+                      <div className="flex items-center justify-between">
+                        <p>Very Good</p>
+                        <p></p>{" "}
+                        {/* Placeholder for potential count if needed */}
+                      </div>
+                      <Box
+                        sx={{
+                          bgcolor: "#e0e0e0",
+                          borderRadius: 4,
+                          height: 8,
+                          width: "100%",
+                        }}
+                      >
+                        <LinearProgress
+                          sx={{ borderRadius: 4, height: 8 }}
+                          variant="determinate"
+                          value={60}
+                          color="success"
+                        />
+                      </Box>
+                    </Grid2>
+                    <Grid2 item>
+                      <div className="flex items-center justify-between">
+                        <p>Good</p>
+                        <p></p>{" "}
+                        {/* Placeholder for potential count if needed */}
+                      </div>
+                      <Box
+                        sx={{
+                          bgcolor: "#e0e0e0",
+                          borderRadius: 4,
+                          height: 8,
+                          width: "100%",
+                        }}
+                      >
+                        <LinearProgress
+                          sx={{ borderRadius: 4, height: 8 }}
+                          variant="determinate"
+                          value={40}
+                          color="info"
+                        />
+                      </Box>
+                    </Grid2>
+                    <Grid2 item>
+                      <div className="flex items-center justify-between">
+                        <p>Avarage</p>
+                        <p></p>{" "}
+                        {/* Placeholder for potential count if needed */}
+                      </div>
+                      <Box
+                        sx={{
+                          bgcolor: "#e0e0e0",
+                          borderRadius: 4,
+                          height: 8,
+                          width: "100%",
+                        }}
+                      >
+                        <LinearProgress
+                          sx={{ borderRadius: 4, height: 8 }}
+                          variant="determinate"
+                          value={20}
+                          color="warning"
+                        />
+                      </Box>
+                    </Grid2>
+                    <Grid2 item>
+                      <div className="flex items-center justify-between">
+                        <p>Poor</p>
+                        <p></p>{" "}
+                        {/* Placeholder for potential count if needed */}
+                      </div>
+                      <Box
+                        sx={{
+                          bgcolor: "#e0e0e0",
+                          borderRadius: 4,
+                          height: 8,
+                          width: "100%",
+                        }}
+                      >
+                        <LinearProgress
+                          sx={{ borderRadius: 4, height: 8 }}
+                          variant="determinate"
+                          value={10}
+                          color="error"
+                        />
+                      </Box>
+                    </Grid2>
+                  </Grid2>
+                </Box>
+              </Grid2>
             </Grid2>
+          </div>
+        </section>
+
+        <section className="pt-10">
+          <h1 className="py-5 text-xl font-bold">Similar Product</h1>
+          <div className="flex flex-wrap space-y-5">
+            {mens_kurta.map((item) => (
+              <HomeSectionCard product={item} />
+            ))}
           </div>
         </section>
       </div>
