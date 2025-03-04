@@ -22,9 +22,25 @@ import {
   XMarkIcon,
 } from "@heroicons/react/24/outline";
 import { navigation } from "./navigationData";
+import { useNavigate } from "react-router-dom";
 
 export default function Navigation() {
   const [open, setOpen] = useState(false);
+  const navigate = useNavigate();
+
+  const handleCategoryClick = (category, section, item, close) => {
+    navigate(`/${category.id}/${section.id}/${item.id}`);
+    close();
+  };
+
+  const handleAddtoCart = () => {
+    navigate("/cart");
+  };
+
+  const handleCloseUserMenu = () => {
+    // This function can be used to close the user menu if needed
+    // For now, it will just ensure the menu closes when an item is clicked
+  };
 
   return (
     <div className="bg-white pb-10">
@@ -139,39 +155,6 @@ export default function Navigation() {
                 </div>
               ))}
             </div>
-
-            {/* <div className="space-y-6 border-t border-gray-200 px-4 py-6">
-              <div className="flow-root">
-                <a
-                  href="#"
-                  className="-m-2 block p-2 font-medium text-gray-900"
-                >
-                  Sign in
-                </a>
-              </div>
-              <div className="flow-root">
-                <a
-                  href="#"
-                  className="-m-2 block p-2 font-medium text-gray-900"
-                >
-                  Create account
-                </a>
-              </div>
-            </div> */}
-
-            {/* <div className="border-t border-gray-200 px-4 py-6">
-              <a href="#" className="-m-2 flex items-center p-2">
-                <img
-                  alt=""
-                  src="https://tailwindui.com/plus-assets/img/flags/flag-canada.svg"
-                  className="block h-auto w-5 shrink-0"
-                />
-                <span className="ml-3 block text-base font-medium text-gray-900">
-                  CAD
-                </span>
-                <span className="sr-only">, change currency</span>
-              </a>
-            </div> */}
           </DialogPanel>
         </div>
       </Dialog>
@@ -218,7 +201,6 @@ export default function Navigation() {
                         transition
                         className="absolute inset-x-0 top-full text-sm text-gray-500 transition data-closed:opacity-0 data-enter:duration-200 data-enter:ease-out data-leave:duration-150 data-leave:ease-in"
                       >
-                        {/* Presentational element used to render the bottom shadow, if we put the shadow on the actual panel it pokes out the top, so we use this shorter element to hide the top of the shadow */}
                         <div
                           aria-hidden="true"
                           className="absolute inset-0 top-1/2 bg-white shadow-sm"
@@ -302,43 +284,26 @@ export default function Navigation() {
               </PopoverGroup>
 
               <div className="ml-auto flex items-center">
-                {/* <div className="hidden lg:flex lg:flex-1 lg:items-center lg:justify-end lg:space-x-6">
-                  <a
-                    href="#"
-                    className="text-sm font-medium text-gray-700 hover:text-gray-800"
-                  >
-                    Sign in
-                  </a>
-                  <span aria-hidden="true" className="h-6 w-px bg-gray-200" />
-                  <a
-                    href="#"
-                    className="text-sm font-medium text-gray-700 hover:text-gray-800"
-                  >
-                    Create account
-                  </a>
-                </div> */}
-
-                {/* <div className="hidden lg:ml-8 lg:flex">
-                  <a
-                    href="#"
-                    className="flex items-center text-gray-700 hover:text-gray-800"
-                  >
-                    <img
-                      alt=""
-                      src="https://tailwindui.com/plus-assets/img/flags/flag-canada.svg"
-                      className="block h-auto w-5 shrink-0"
-                    />
-                    <span className="ml-3 block text-sm font-medium">CAD</span>
-                    <span className="sr-only">, change currency</span>
-                  </a>
-                </div> */}
-                {/* User Avatar */}
                 <div className="flex lg:ml-6">
-                  <div className="flex items-center justify-center h-8 w-8 rounded-full bg-purple-600">
-                    <span className="text-sm font-medium leading-none text-white">
-                      U
-                    </span>
-                  </div>
+                  <Popover className="relative">
+                    <PopoverButton className="flex items-center justify-center h-8 w-8 rounded-full bg-purple-600">
+                      <span className="text-sm font-medium leading-none text-white">
+                        U
+                      </span>
+                    </PopoverButton>
+
+                    <PopoverPanel className="absolute right-0 z-10 mt-2 w-48 bg-white ring-1 ring-black ring-opacity-5 shadow-lg">
+                      <div className="py-1">
+                        <MenuItem onClick={handleCloseUserMenu}>
+                          Profile
+                        </MenuItem>
+                        <MenuItem onClick={() => navigate("/account/order")}>
+                          My Orders
+                        </MenuItem>
+                        <MenuItem>Logout</MenuItem>
+                      </div>
+                    </PopoverPanel>
+                  </Popover>
                 </div>
 
                 {/* Search */}
@@ -354,7 +319,11 @@ export default function Navigation() {
 
                 {/* Cart */}
                 <div className="ml-4 flow-root lg:ml-6">
-                  <a href="#" className="group -m-2 flex items-center p-2">
+                  <a
+                    href="#"
+                    className="group -m-2 flex items-center p-2"
+                    onClick={handleAddtoCart}
+                  >
                     <ShoppingBagIcon
                       aria-hidden="true"
                       className="size-6 shrink-0 text-gray-400 group-hover:text-gray-500"
@@ -373,3 +342,14 @@ export default function Navigation() {
     </div>
   );
 }
+
+// Placeholder for MenuItem component (assuming it's a custom component)
+const MenuItem = ({ onClick, children }) => (
+  <a
+    href="#"
+    onClick={onClick}
+    className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100"
+  >
+    {children}
+  </a>
+);
